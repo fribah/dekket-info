@@ -1,4 +1,4 @@
-import { FF, BLUE } from "../constants";
+import { FF } from "../constants";
 
 const ExtIcon = () => (
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -26,6 +26,7 @@ export default function Footer() {
           ))}
         </div>
         <p style={{ fontSize: 11, color: "#CCC", marginTop: 14 }}>dekket.info er uavhengig og gratis. Generell veiledning, ikke finansiell rådgivning.</p>
+        <p style={{ fontSize: 11, color: "#CCC", marginTop: 6 }}>© 2026 dekket.info. All rights reserved.</p>
       </div>
     </footer>
   );

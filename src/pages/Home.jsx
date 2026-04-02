@@ -75,7 +75,7 @@ export default function Home() {
             Gratis og uavhengig
           </div>
           <h1 style={{ fontSize: "clamp(32px,5.5vw,52px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em", margin: "0 0 20px", color: "#111" }}>
-            Hvilke forsikringer trenger du <span style={{ color: BLUE }}>egentlig</span>?
+            Har du forsikringene du trenger? <span style={{ color: BLUE }}>egentlig</span>?
           </h1>
           <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7, margin: "0 0 32px", maxWidth: 500 }}>
             Kryss av din livssituasjon og få et ærlig svar. Ingen salg, ingen provisjon.

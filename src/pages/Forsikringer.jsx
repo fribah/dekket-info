@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { BLUE, BL, BM, FF } from "../constants";
@@ -80,12 +79,11 @@ export default function Forsikringer(){
   const[showSkip,setShowSkip]=useState(false);
   const[isMobile,setIsMobile]=useState(false);
   const bundleRef=useRef(null);
-  const [searchParams]=useSearchParams();
 
   useEffect(()=>{const c=()=>setIsMobile(window.innerWidth<640);c();window.addEventListener("resize",c);return()=>window.removeEventListener("resize",c);},[]);
 
   useEffect(()=>{
-    const card=searchParams.get("card");
+    const card=new URLSearchParams(window.location.search).get("card");
     if(card){
       setExp(card);
       setTimeout(()=>{document.getElementById(`card-${card}`)?.scrollIntoView({behavior:"smooth",block:"center"});},300);
@@ -131,8 +129,8 @@ export default function Forsikringer(){
 
         {/* Hero */}
         <div style={{padding:"10px 0 36px",maxWidth:560}}>
-          <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:500,lineHeight:1.15,letterSpacing:"-0.03em",margin:"0 0 14px",color:"#111"}}>
-            Hvilke forsikringer trenger du <span style={{color:BLUE}}>egentlig</span>?
+          <h1 style={{fontSize:"clamp(32px,5vw,48px)",fontWeight:700,lineHeight:1.1,letterSpacing:"-0.03em",margin:"0 0 14px",color:"#111"}}>
+            Hvilke <span style={{color:BLUE}}>forsikringer</span> trenger du?
           </h1>
           <p style={{fontSize:17,color:"#888",lineHeight:1.7,margin:0}}>
             Kryss av det som gjelder for deg. Vi gir deg et ærlig svar uten bullshit.
