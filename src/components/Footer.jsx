@@ -8,11 +8,7 @@ const ExtIcon = () => (
 
 const SOURCES = [
   { n: "Forbrukerrådet", u: "https://www.forbrukerradet.no/forside/okonomi/forsikring/" },
-  { n: "Finansportalen", u: "https://www.finansportalen.no/forsikring/" },
-  { n: "Helsenorge", u: "https://www.helsenorge.no/" },
-  { n: "NAV", u: "https://www.nav.no/" },
-];
-
+]
 export default function Footer() {
   return (
     <footer style={{ maxWidth: 920, margin: "0 auto", padding: "0 24px" }}>
