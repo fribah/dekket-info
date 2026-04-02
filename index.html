@@ -1,64 +1,106 @@
 <!DOCTYPE html>
 <html lang="nb">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hvilke forsikringer trenger du? | dekket.info</title>
-    <meta name="description" content="Finn ut hvilke forsikringer du egentlig trenger. Uavhengig og gratis veiledning basert på din livssituasjon. Ingen salg, ingen provisjon." />
-    <link rel="canonical" href="https://dekket.info/" />
-    <meta property="og:title" content="Hvilke forsikringer trenger du? | dekket.info" />
-    <meta property="og:description" content="Finn ut hvilke forsikringer du egentlig trenger. Uavhengig og gratis." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://dekket.info/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; color: #1a1a1a; }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Har du forsikringene du trenger? | Dekket</title>
+  <meta name="description" content="Finn ut hvilke forsikringer du egentlig trenger." />
+  <link rel="canonical" href="https://dekket.info/" />
+  <meta property="og:title" content="Har du forsikringene du trenger? | dekket.info" />
+  <meta property="og:description" content="Finn ut hvilke forsikringer du egentlig trenger. Uavhengig og gratis." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dekket.info/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
 
-      /* SEO content visible before React loads, hidden after */
-      #seo-content { max-width: 920px; margin: 0 auto; padding: 80px 24px 40px; }
-      #seo-content h1 { font-size: 42px; font-weight: 500; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 14px; }
-      #seo-content h1 span { color: #1D4ED8; }
-      #seo-content p { font-size: 17px; color: #888; line-height: 1.7; }
-      #seo-content .cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
-      #seo-content .cat { padding: 20px; border: 1px solid #eee; border-radius: 12px; }
-      #seo-content .cat h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-      #seo-content .cat p { font-size: 13px; color: #999; }
-      @media (max-width: 600px) { #seo-content .cats { grid-template-columns: 1fr; } }
+  <!-- Header -->
+  <header class="site-header">
+    <a href="/" class="logo">
+      <svg width="26" height="29" viewBox="0 0 200 250" fill="none"><path fill-rule="evenodd" fill="#000" d="M 10 0 L 82 0 L 100 24 L 118 0 L 170 0 C 195 0 200 20 200 50 L 200 90 C 200 160 155 215 100 245 L 10 190 L 10 0 Z M 42 34 L 42 168 L 100 208 C 140 190 168 148 168 100 C 168 55 165 40 155 36 L 118 36 L 100 56 L 82 36 L 42 36 Z"/></svg>
+      <span>dekket</span>
+    </a>
+    <nav>
+      <a href="/forsikringer">Forsikringer</a>
+    </nav>
+  </header>
 
-      /* Hide SEO content once React mounts */
-      .react-loaded #seo-content { display: none; }
-    </style>
-  </head>
-  <body>
-    <!-- SEO content: visible to Google and before React loads -->
-    <div id="seo-content">
-      <h1>Hvilke forsikringer trenger du <span>egentlig</span>?</h1>
-      <p>Kryss av det som gjelder for deg. Vi gir deg et ærlig svar uten bullshit. Uavhengig og gratis veiledning basert på din livssituasjon. Ingen salg, ingen provisjon.</p>
-
-      <div class="cats">
-        <div class="cat"><h3>Innboforsikring</h3><p>Alt du eier i boligen</p></div>
-        <div class="cat"><h3>Bilforsikring</h3><p>Lovpålagt og viktig</p></div>
-        <div class="cat"><h3>Reiseforsikring</h3><p>Innen- og utenlands</p></div>
-        <div class="cat"><h3>Husforsikring</h3><p>Dekker selve bygningen</p></div>
-        <div class="cat"><h3>Livsforsikring</h3><p>Sikrer familien din</p></div>
-        <div class="cat"><h3>Uføreforsikring</h3><p>Hvis du ikke kan jobbe</p></div>
-        <div class="cat"><h3>Barneforsikring</h3><p>Sykdom og ulykker</p></div>
-        <div class="cat"><h3>Ulykkesforsikring</h3><p>Varig skade</p></div>
-        <div class="cat"><h3>Kritisk sykdom</h3><p>Skattefri engangssum</p></div>
-      </div>
-
-      <h2 style="margin-top:40px;font-size:28px;font-weight:500;">Dette kan du spare ved å samle forsikringene dine</h2>
-      <p>De fleste forsikringsselskaper gir 15 til 20% rabatt når du samler flere forsikringer hos dem.</p>
-
-      <h2 style="margin-top:32px;font-size:24px;font-weight:500;">Andre måter å spare på</h2>
-      <p>Sjekk hva jobben dekker. Sjekk fagforeningen. Øk egenandelen hvis du har sparepenger. Ikke betal for dobbel dekning.</p>
+  <div class="container">
+    <div class="hero">
+      <h1>Har du <span>forsikringene</span> du trenger?</h1>
+      <p>Kryss av din livssituasjon og få et ærlig svar. Ingen salg, ingen provisjon.</p>
+      <a href="/forsikringer" class="cta">Finn mine forsikringer →</a>
     </div>
 
-    <!-- React app mounts here and replaces the above -->
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <h2>Forsikringer</h2>
+    <div class="grid">
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 001 1h3v-6h6v6h3a1 1 0 001-1V10"/></svg>
+        <h3>Innboforsikring</h3>
+        <p>Alt du eier i boligen</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 01-2-2v-4l2.5-5h13L21 11v4a2 2 0 01-2 2M5 17a2 2 0 002 2h1a2 2 0 002-2M14 17a2 2 0 002 2h1a2 2 0 002-2"/></svg>
+        <h3>Bilforsikring</h3>
+        <p>Lovpålagt og viktig</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C20.3 6.7 21 5 20 4s-2.7-.3-3.5.5L13 8l-8.2-1.8a.5.5 0 00-.5.2l-1.1 1.1a.5.5 0 00.1.7L9 12l-2 2-3-.5-.5.5 2.5 2 2 2.5.5-.5-.5-3 2-2 3.7 5.7a.5.5 0 00.7.1l1.1-1.1a.5.5 0 00.2-.5z"/></svg>
+        <h3>Reiseforsikring</h3>
+        <p>Innen- og utenlands</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8l9-5 9 5"/></svg>
+        <h3>Husforsikring</h3>
+        <p>Dekker selve bygningen</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="17" cy="9" r="2.5"/><path d="M21 21v-1.5a3 3 0 00-2-2.8"/></svg>
+        <h3>Livsforsikring</h3>
+        <p>Sikrer familien din</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+        <h3>Uføreforsikring</h3>
+        <p>Hvis du ikke kan jobbe</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 15c.8.8 1.9 1 3 1s2.2-.2 3-1"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg>
+        <h3>Barneforsikring</h3>
+        <p>Sykdom og ulykker</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        <h3>Ulykkesforsikring</h3>
+        <p>Varig skade</p>
+      </a>
+      <a href="/forsikringer" class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5.5-3.8 8.7-8 10-4.2-1.3-8-4.5-8-10V6l8-4z"/></svg>
+        <h3>Kritisk sykdom</h3>
+        <p>Skattefri engangssum</p>
+      </a>
+    </div>
+
+    <h2>Måter å spare på</h2>
+    <div class="tips">
+      <ul>
+        <li><strong>Samle forsikringene</strong> hos ett selskap for 15 til 20% rabatt.</li>
+        <li><strong>Sjekk hva jobben dekker.</strong> Mange har reise, ulykke og uføre uten å vite det.</li>
+        <li><strong>Sjekk fagforeningen.</strong> Mange har avtaler med bedre priser.</li>
+        <li><strong>Øk egenandelen</strong> hvis du har sparepenger.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="links">
+      <a href="https://www.forbrukerradet.no/finansportalen/forsikring/" target="_blank" rel="noopener noreferrer">Forbrukerrådet</a>
+    </div>
+    <p>© 2026 dekket.info. All rights reserved. Uavhengig og gratis. Generell veiledning, ikke finansiell rådgivning.</p>
+  </footer>
+
+</body>
 </html>

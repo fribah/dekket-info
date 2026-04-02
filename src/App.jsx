@@ -1,17 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 
-const BLUE = "#1D4ED8";
-const BL = "#EFF4FF";
-const BM = "#DBEAFE";
+const BLUE = "#4D4AFB";
+const BL = "#EDEDFF";
+const BM = "#D8D8FF";
 const FF = "'Manrope',sans-serif";
-
-const Logo = ({ size = 28, color = "#111" }) => (
-  <svg width={size} height={size * 1.1} viewBox="0 0 24 28" fill="none">
-    <path d="M2 3C2 2 2.5 1 4 1h8c7 0 11 5 11 12.5S19 26 12 26H4c-1.5 0-2-1-2-2V3z" fill={color} />
-    <path d="M7 6h5c4.5 0 7.5 3.2 7.5 8S16.5 22 12 22H7V6z" fill="white" />
-    <path d="M10 9.5h2c2.8 0 4.5 2.2 4.5 4.8S14.8 19 12 19h-2V9.5z" fill={color} />
-  </svg>
-);
 
 const I = {
   car:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17h14M5 17a2 2 0 01-2-2v-4l2.5-5h13L21 11v4a2 2 0 01-2 2M5 17a2 2 0 002 2h1a2 2 0 002-2M14 17a2 2 0 002 2h1a2 2 0 002-2"/></svg>,
@@ -35,8 +27,6 @@ const I = {
   dash:<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>,
   xI:<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>,
   down:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>,
-  hamburger:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>,
-  close:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>,
 };
 
 const SITS=[
@@ -80,7 +70,6 @@ const INS=[
 ];
 
 const PM={must:{label:"Du trenger disse",color:BLUE,bg:BL,border:BM,icon:I.check},consider:{label:"Bør vurderes",color:"#92400E",bg:"#FFFBEB",border:"#FDE68A",icon:I.dash},skip:{label:"Kan trolig droppes",color:"#888",bg:"#F9F9F9",border:"#E5E5E5",icon:I.xI}};
-const NAV_ITEMS=[{l:"Innboforsikring",id:"innbo"},{l:"Bilforsikring",id:"bil_f"},{l:"Reiseforsikring",id:"reise"},{l:"Husforsikring",id:"hus"},{l:"Livsforsikring",id:"liv_m"},{l:"Uføreforsikring",id:"ufore"},{l:"Barneforsikring",id:"barne"},{l:"Ulykkesforsikring",id:"ulykke"},{l:"Kritisk sykdom",id:"kritisk"},{l:"Behandlingsforsikring",id:"behandling"}];
 
 function pp(pr){const m=pr.match(/([\d\s]+)\s*til\s*([\d\s]+)/);return m?{lo:parseInt(m[1].replace(/\s/g,"")),hi:parseInt(m[2].replace(/\s/g,""))}:null;}
 function fmt(n){return n.toLocaleString("nb-NO");}
@@ -89,7 +78,6 @@ export default function App(){
   const[sel,setSel]=useState(new Set());
   const[status,setStatus]=useState({});
   const[exp,setExp]=useState(null);
-  const[showNav,setShowNav]=useState(false);
   const[showSkip,setShowSkip]=useState(false);
   const[isMobile,setIsMobile]=useState(false);
   const bundleRef=useRef(null);
@@ -123,187 +111,122 @@ export default function App(){
     <button onClick={e=>{e.stopPropagation();onClick();}} style={{fontSize:11,fontWeight:600,padding:"4px 10px",borderRadius:5,border:`1px solid ${active?activeColor+"55":"#DDD"}`,background:active?(activeColor===BLUE?BL:activeColor==="#16a34a"?"#f0fdf4":"#f5f5f5"):"white",color:active?activeColor:"#AAA",cursor:"pointer",fontFamily:FF}}>{label}</button>
   );
 
-  const schema={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"dekket.info","item":"https://dekket.info/"},{"@type":"ListItem","position":2,"name":"Forsikringer","item":"https://dekket.info/forsikringer"}]};
-
   return(
-    <div style={{fontFamily:FF,minHeight:"100vh",background:"white",color:"#1a1a1a",lineHeight:1.6}}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}}/>
+    <div className="checker">
+      {/* Situations */}
+      <div style={{paddingBottom:28}}>
+        <div style={{fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.08em",color:"#BBB",marginBottom:12}}>Min situasjon</div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+          {SITS.map(s=>{const a=sel.has(s.id);return(
+            <button key={s.id} onClick={()=>tog(s.id)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 16px",borderRadius:8,border:`2px solid ${a?BLUE:"transparent"}`,outline:a?"none":"1.5px solid #DDD",background:a?BL:"white",color:a?BLUE:"#555",fontSize:13,fontWeight:a?600:450,cursor:"pointer",fontFamily:FF,whiteSpace:"nowrap"}}>
+              <span style={{display:"flex",opacity:a?1:0.35}}>{s.icon}</span>{s.label}
+            </button>
+          );})}
+        </div>
+      </div>
 
-      {/* Nav */}
-      <nav style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"18px 24px",maxWidth:920,margin:"0 auto",position:"relative"}}>
-        <a href="https://dekket.info/" style={{display:"flex",alignItems:"center",gap:8,textDecoration:"none"}}>
-          <Logo size={26}/><span style={{fontSize:16,fontWeight:800,letterSpacing:"-0.02em",color:"#111"}}>dekket.info</span>
-        </a>
-        <div style={{position:"relative"}}>
-          {isMobile?(
-            <button onClick={()=>setShowNav(!showNav)} style={{background:"transparent",border:"none",cursor:"pointer",color:"#555",display:"flex",padding:4}}>{showNav?I.close:I.hamburger}</button>
-          ):(
-            <button onClick={()=>setShowNav(!showNav)} style={{display:"flex",alignItems:"center",gap:5,fontSize:13,fontWeight:600,color:"#555",background:"transparent",border:"none",padding:"7px 0",cursor:"pointer",fontFamily:FF}}>Forsikringer <span style={{display:"flex",transform:showNav?"rotate(180deg)":"",transition:"0.15s"}}>{I.chev}</span></button>
+      {/* Blue bar */}
+      {has&&tc.lo>0&&(
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:10,padding:"14px 20px",borderRadius:12,background:BLUE,color:"white",marginBottom:28}}>
+          <div style={{minWidth:0}}>
+            <div style={{fontWeight:700,fontSize:isMobile?15:17}}>Estimert kostnad: {fmt(tc.lo)} til {fmt(tc.hi)} kr/år</div>
+            <div style={{opacity:0.65,fontSize:12,marginTop:2}}>Basert på {costItems.length} forsikring{costItems.length!==1?"er":""} du sannsynligvis trenger</div>
+          </div>
+          {allB.length>=2&&savLo>0&&(
+            <button onClick={scrollBundle} style={{display:"flex",alignItems:"center",gap:5,fontSize:12,fontWeight:600,color:"white",background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",borderRadius:6,padding:"6px 14px",cursor:"pointer",fontFamily:FF,whiteSpace:"nowrap",flexShrink:0}}>
+              Se hvordan du kan spare {fmt(savLo)} til {fmt(savHi)} kr <span style={{display:"flex"}}>{I.down}</span>
+            </button>
           )}
-          {showNav&&(<>
-            {isMobile&&<div onClick={()=>setShowNav(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.3)",zIndex:99}}/>}
-            <div style={{position:isMobile?"fixed":"absolute",...(isMobile?{top:0,right:0,bottom:0,width:260,background:"white",zIndex:100,padding:"60px 0 20px",boxShadow:"-4px 0 20px rgba(0,0,0,0.1)"}:{right:0,top:"calc(100% + 4px)",background:"white",border:"1px solid #E5E5E5",borderRadius:10,padding:"6px 0",minWidth:220,boxShadow:"0 8px 30px rgba(0,0,0,0.08)",zIndex:100})}}>
-              {isMobile&&<button onClick={()=>setShowNav(false)} style={{position:"absolute",top:14,right:14,background:"none",border:"none",cursor:"pointer",color:"#999"}}>{I.close}</button>}
-              {NAV_ITEMS.map(item=>(
-                <button key={item.id} onClick={()=>{setExp(item.id);setShowNav(false);setTimeout(()=>{document.getElementById(`card-${item.id}`)?.scrollIntoView({behavior:"smooth",block:"center"});},100);}} style={{display:"block",width:"100%",textAlign:"left",padding:isMobile?"12px 24px":"8px 16px",fontSize:isMobile?15:13,fontWeight:500,color:"#444",background:"transparent",border:"none",cursor:"pointer",fontFamily:FF}}>{item.l}</button>
-              ))}
-            </div>
-          </>)}
         </div>
-      </nav>
+      )}
 
-      <div style={{maxWidth:920,margin:"0 auto",padding:"0 24px"}}>
-        <div style={{fontSize:12,color:"#BBB",padding:"0 0 6px"}}><span style={{color:"#CCC"}}>/</span> <span style={{color:"#888",fontWeight:600}}>Forsikringer</span></div>
+      {/* Cards */}
+      {has&&["must","consider"].map(pr=>{
+        const items=g[pr];if(!items.length)return null;const m=PM[pr];
+        return(<div key={pr}>
+          <div style={{display:"flex",alignItems:"center",gap:7,fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:m.color,margin:"24px 0 10px"}}>
+            <span style={{width:22,height:22,borderRadius:6,background:m.bg,border:`1.5px solid ${m.border}`,display:"inline-flex",alignItems:"center",justifyContent:"center",color:m.color}}>{m.icon}</span>
+            {m.label} ({items.length})
+          </div>
+          {items.map(ins=><Card key={ins.id} ins={ins} exp={exp} setExp={setExp} st={status} mark={mark} abtn={abtn} mob={isMobile}/>)}
+        </div>);
+      })}
 
-        {/* Hero */}
-        <div style={{padding:"10px 0 36px",maxWidth:560}}>
-          <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:500,lineHeight:1.15,letterSpacing:"-0.03em",margin:"0 0 14px",color:"#111"}}>
-            Hvilke forsikringer trenger du <span style={{color:BLUE}}>egentlig</span>?
-          </h1>
-          <p style={{fontSize:17,color:"#888",lineHeight:1.7,margin:0}}>
-            Kryss av det som gjelder for deg. Vi gir deg et ærlig svar uten bullshit.
-          </p>
+      {has&&g.skip.length>0&&(
+        <div>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",margin:"24px 0 10px"}}>
+            <div style={{display:"flex",alignItems:"center",gap:7,fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:PM.skip.color}}>
+              <span style={{width:22,height:22,borderRadius:6,background:PM.skip.bg,border:`1.5px solid ${PM.skip.border}`,display:"inline-flex",alignItems:"center",justifyContent:"center",color:PM.skip.color}}>{PM.skip.icon}</span>
+              {PM.skip.label} ({g.skip.length})
+            </div>
+            <button onClick={()=>setShowSkip(!showSkip)} style={{fontSize:12,fontWeight:600,color:BLUE,background:"none",border:"none",cursor:"pointer",fontFamily:FF}}>{showSkip?"Skjul":`Se alle ${g.skip.length}`}</button>
+          </div>
+          {showSkip&&g.skip.map(ins=><Card key={ins.id} ins={ins} exp={exp} setExp={setExp} st={status} mark={mark} abtn={abtn} mob={isMobile}/>)}
         </div>
+      )}
 
-        {/* Situations */}
-        <div style={{paddingBottom:28}}>
-          <div style={{fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.08em",color:"#BBB",marginBottom:12}}>Min situasjon</div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
-            {SITS.map(s=>{const a=sel.has(s.id);return(
-              <button key={s.id} onClick={()=>tog(s.id)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 16px",borderRadius:8,border:`2px solid ${a?BLUE:"transparent"}`,outline:a?"none":"1.5px solid #DDD",background:a?BL:"white",color:a?BLUE:"#555",fontSize:13,fontWeight:a?600:450,cursor:"pointer",fontFamily:FF,whiteSpace:"nowrap"}}>
-                <span style={{display:"flex",opacity:a?1:0.35}}>{s.icon}</span>{s.label}
-              </button>
-            );})}
-          </div>
+      {has&&(have.length>0||job.length>0||skipped.length>0)&&(
+        <div style={{marginTop:20}}>
+          {have.length>0&&<SG label="Har allerede" items={have} st={status} mark={mark} color="#16a34a"/>}
+          {job.length>0&&<SG label="Dekket via jobb" items={job} st={status} mark={mark} color={BLUE}/>}
+          {skipped.length>0&&<SG label="Trenger ikke" items={skipped} st={status} mark={mark} color="#999"/>}
         </div>
+      )}
 
-        {/* Blue bar */}
-        {has&&tc.lo>0&&(
-          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:10,padding:"14px 20px",borderRadius:12,background:BLUE,color:"white",marginBottom:28}}>
-            <div style={{minWidth:0}}>
-              <div style={{fontWeight:700,fontSize:isMobile?15:17}}>Estimert kostnad: {fmt(tc.lo)} til {fmt(tc.hi)} kr/år</div>
-              <div style={{opacity:0.65,fontSize:12,marginTop:2}}>Basert på {costItems.length} forsikring{costItems.length!==1?"er":""} du sannsynligvis trenger</div>
+      {/* BUNDLE */}
+      <div ref={bundleRef} style={{marginTop:52}}>
+        <h2 style={{fontSize:"clamp(24px,3.5vw,32px)",fontWeight:500,letterSpacing:"-0.02em",color:"#111",margin:"0 0 8px"}}>
+          Dette kan du spare ved å samle forsikringene dine
+        </h2>
+        <p style={{fontSize:15,color:"#888",margin:"0 0 20px",maxWidth:520,lineHeight:1.7}}>
+          De fleste forsikringsselskaper gir 15 til 20% rabatt når du samler flere forsikringer hos dem. Det kan fort bli noen tusenlapper i året.
+        </p>
+        {has&&allB.length>=2?(
+          <div style={{borderRadius:16,overflow:"hidden",border:`2px solid ${BLUE}`}}>
+            <div style={{background:BLUE,padding:"26px 28px 22px",color:"white"}}>
+              <div style={{fontSize:isMobile?22:28,fontWeight:600,letterSpacing:"-0.02em",marginBottom:6}}>Spar {fmt(savLo)} til {fmt(savHi)} kr/år</div>
+              <p style={{fontSize:15,opacity:0.8,lineHeight:1.5,margin:0}}>ved å samle {allB.length} forsikringer hos samme selskap</p>
             </div>
-            {allB.length>=2&&savLo>0&&(
-              <button onClick={scrollBundle} style={{display:"flex",alignItems:"center",gap:5,fontSize:12,fontWeight:600,color:"white",background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",borderRadius:6,padding:"6px 14px",cursor:"pointer",fontFamily:FF,whiteSpace:"nowrap",flexShrink:0}}>
-                Se hvordan du kan spare {fmt(savLo)} til {fmt(savHi)} kr <span style={{display:"flex"}}>{I.down}</span>
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Cards */}
-        {has&&["must","consider"].map(pr=>{
-          const items=g[pr];if(!items.length)return null;const m=PM[pr];
-          return(<div key={pr}>
-            <div style={{display:"flex",alignItems:"center",gap:7,fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:m.color,margin:"24px 0 10px"}}>
-              <span style={{width:22,height:22,borderRadius:6,background:m.bg,border:`1.5px solid ${m.border}`,display:"inline-flex",alignItems:"center",justifyContent:"center",color:m.color}}>{m.icon}</span>
-              {m.label} ({items.length})
-            </div>
-            {items.map(ins=><Card key={ins.id} ins={ins} exp={exp} setExp={setExp} st={status} mark={mark} abtn={abtn} mob={isMobile}/>)}
-          </div>);
-        })}
-
-        {has&&g.skip.length>0&&(
-          <div>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",margin:"24px 0 10px"}}>
-              <div style={{display:"flex",alignItems:"center",gap:7,fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:PM.skip.color}}>
-                <span style={{width:22,height:22,borderRadius:6,background:PM.skip.bg,border:`1.5px solid ${PM.skip.border}`,display:"inline-flex",alignItems:"center",justifyContent:"center",color:PM.skip.color}}>{PM.skip.icon}</span>
-                {PM.skip.label} ({g.skip.length})
-              </div>
-              <button onClick={()=>setShowSkip(!showSkip)} style={{fontSize:12,fontWeight:600,color:BLUE,background:"none",border:"none",cursor:"pointer",fontFamily:FF}}>{showSkip?"Skjul":`Se alle ${g.skip.length}`}</button>
-            </div>
-            {showSkip&&g.skip.map(ins=><Card key={ins.id} ins={ins} exp={exp} setExp={setExp} st={status} mark={mark} abtn={abtn} mob={isMobile}/>)}
-          </div>
-        )}
-
-        {has&&(have.length>0||job.length>0||skipped.length>0)&&(
-          <div style={{marginTop:20}}>
-            {have.length>0&&<SG label="Har allerede" items={have} st={status} mark={mark} color="#16a34a"/>}
-            {job.length>0&&<SG label="Dekket via jobb" items={job} st={status} mark={mark} color={BLUE}/>}
-            {skipped.length>0&&<SG label="Trenger ikke" items={skipped} st={status} mark={mark} color="#999"/>}
-          </div>
-        )}
-
-        {/* BUNDLE */}
-        <div ref={bundleRef} style={{marginTop:52}}>
-          <h2 style={{fontSize:"clamp(24px,3.5vw,32px)",fontWeight:500,letterSpacing:"-0.02em",color:"#111",margin:"0 0 8px"}}>
-            Dette kan du spare ved å samle forsikringene dine
-          </h2>
-          <p style={{fontSize:15,color:"#888",margin:"0 0 20px",maxWidth:520,lineHeight:1.7}}>
-            De fleste forsikringsselskaper gir 15 til 20% rabatt når du samler flere forsikringer hos dem. Det kan fort bli noen tusenlapper i året.
-          </p>
-          {has&&allB.length>=2?(
-            <div style={{borderRadius:16,overflow:"hidden",border:`2px solid ${BLUE}`}}>
-              <div style={{background:BLUE,padding:"26px 28px 22px",color:"white"}}>
-                <div style={{fontSize:isMobile?22:28,fontWeight:600,letterSpacing:"-0.02em",marginBottom:6}}>Spar {fmt(savLo)} til {fmt(savHi)} kr/år</div>
-                <p style={{fontSize:15,opacity:0.8,lineHeight:1.5,margin:0}}>ved å samle {allB.length} forsikringer hos samme selskap</p>
-              </div>
-              <div style={{background:BL,padding:"24px 28px 28px"}}>
-                {bNeed.length>0&&(<>
-                  <div style={{fontSize:12,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:BLUE,marginBottom:10}}>Trenger ({bNeed.length})</div>
-                  <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:bHave.length?20:0}}>
-                    {bNeed.map(i=>{const pr=pp(i.pr);return(
-                      <div key={i.id} style={{display:"flex",alignItems:"center",gap:8,padding:"10px 16px",borderRadius:10,background:"white",border:`1px solid ${BM}`,fontSize:13,flexWrap:"wrap"}}>
-                        <span style={{fontWeight:600,color:"#222"}}>{i.n}</span>
-                        {pr&&<span style={{fontWeight:500,color:"#999",fontSize:12}}>{fmt(pr.lo)} til {fmt(pr.hi)} kr</span>}
-                      </div>
-                    );})}
-                  </div>
-                </>)}
-                {bHave.length>0&&(<>
-                  <div style={{fontSize:12,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:"#16a34a",marginBottom:10}}>Har allerede — flytt til samme selskap ({bHave.length})</div>
-                  <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:20}}>
-                    {bHave.map(i=>{const pr=pp(i.pr);return(
-                      <div key={i.id} style={{display:"flex",alignItems:"center",gap:8,padding:"10px 16px",borderRadius:10,background:"white",border:"1px solid #bbf7d0",fontSize:13,flexWrap:"wrap"}}>
-                        <span style={{fontWeight:600,color:"#222"}}>{i.n}</span>
-                        {pr&&<span style={{fontWeight:500,color:"#999",fontSize:12}}>{fmt(pr.lo)} til {fmt(pr.hi)} kr</span>}
-                        <span style={{fontSize:10,fontWeight:600,color:"#16a34a",background:"#f0fdf4",padding:"2px 6px",borderRadius:4}}>har</span>
-                      </div>
-                    );})}
-                  </div>
-                </>)}
-                <div style={{background:"white",borderRadius:12,padding:"18px 22px",border:`1px solid ${BM}`}}>
-                  <div style={{fontSize:15,fontWeight:600,color:"#111",marginBottom:8}}>Slik gjør du det</div>
-                  <div style={{fontSize:14,color:"#555",lineHeight:1.7}}>
-                    <p style={{margin:"0 0 6px"}}>1. Velg ett selskap (f.eks. If, Gjensidige, Tryg, Fremtind)</p>
-                    <p style={{margin:"0 0 6px"}}>2. Be om tilbud på alle forsikringene samlet</p>
-                    <p style={{margin:"0 0 6px"}}>3. Flytt de du allerede har. Du kan si opp med én måneds varsel.</p>
-                    <p style={{margin:0}}>4. Sammenlign på <a href="https://www.finansportalen.no/forsikring/" target="_blank" rel="noopener noreferrer" style={{color:BLUE,fontWeight:600}}>Finansportalen</a></p>
-                  </div>
+            <div style={{background:BL,padding:"24px 28px 28px"}}>
+              {bNeed.length>0&&(<>
+                <div style={{fontSize:12,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:BLUE,marginBottom:10}}>Trenger ({bNeed.length})</div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:bHave.length?20:0}}>
+                  {bNeed.map(i=>{const pr=pp(i.pr);return(
+                    <div key={i.id} style={{display:"flex",alignItems:"center",gap:8,padding:"10px 16px",borderRadius:10,background:"white",border:`1px solid ${BM}`,fontSize:13,flexWrap:"wrap"}}>
+                      <span style={{fontWeight:600,color:"#222"}}>{i.n}</span>
+                      {pr&&<span style={{fontWeight:500,color:"#999",fontSize:12}}>{fmt(pr.lo)} til {fmt(pr.hi)} kr</span>}
+                    </div>
+                  );})}
+                </div>
+              </>)}
+              {bHave.length>0&&(<>
+                <div style={{fontSize:12,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.07em",color:"#16a34a",marginBottom:10}}>Har allerede — flytt til samme selskap ({bHave.length})</div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:20}}>
+                  {bHave.map(i=>{const pr=pp(i.pr);return(
+                    <div key={i.id} style={{display:"flex",alignItems:"center",gap:8,padding:"10px 16px",borderRadius:10,background:"white",border:"1px solid #bbf7d0",fontSize:13,flexWrap:"wrap"}}>
+                      <span style={{fontWeight:600,color:"#222"}}>{i.n}</span>
+                      {pr&&<span style={{fontWeight:500,color:"#999",fontSize:12}}>{fmt(pr.lo)} til {fmt(pr.hi)} kr</span>}
+                      <span style={{fontSize:10,fontWeight:600,color:"#16a34a",background:"#f0fdf4",padding:"2px 6px",borderRadius:4}}>har</span>
+                    </div>
+                  );})}
+                </div>
+              </>)}
+              <div style={{background:"white",borderRadius:12,padding:"18px 22px",border:`1px solid ${BM}`}}>
+                <div style={{fontSize:15,fontWeight:600,color:"#111",marginBottom:8}}>Slik gjør du det</div>
+                <div style={{fontSize:14,color:"#555",lineHeight:1.7}}>
+                  <p style={{margin:"0 0 6px"}}>1. Velg ett selskap (f.eks. If, Gjensidige, Tryg, Fremtind)</p>
+                  <p style={{margin:"0 0 6px"}}>2. Be om tilbud på alle forsikringene samlet</p>
+                  <p style={{margin:"0 0 6px"}}>3. Flytt de du allerede har. Du kan si opp med én måneds varsel.</p>
+                  <p style={{margin:0}}>4. Sammenlign på <a href="https://www.finansportalen.no/forsikring/" target="_blank" rel="noopener noreferrer" style={{color:BLUE,fontWeight:600}}>Finansportalen</a></p>
                 </div>
               </div>
             </div>
-          ):(
-            <div style={{borderRadius:16,background:BL,border:`1px solid ${BM}`,padding:"40px 28px",textAlign:"center"}}>
-              <p style={{fontSize:15,color:"#999",margin:0}}>{has?"Marker forsikringene du har og trenger ovenfor for å se hva du kan spare.":"Velg din situasjon ovenfor, så regner vi ut hva du kan spare."}</p>
-            </div>
-          )}
-        </div>
-
-        {/* TIPS */}
-        <div style={{marginTop:52}}>
-          <h2 style={{fontSize:"clamp(22px,3vw,28px)",fontWeight:500,letterSpacing:"-0.02em",color:"#111",margin:"0 0 14px"}}>Andre måter å spare på</h2>
-          <div style={{background:"#FAFAFA",borderRadius:12,padding:"22px 24px",border:"1px solid #EEEEEE"}}>
-            <div style={{fontSize:14,lineHeight:1.75,color:"#555"}}>
-              <p style={{margin:"0 0 8px"}}><strong>Sjekk hva jobben dekker.</strong> Mange har reise, ulykke og uføre uten å vite det.</p>
-              <p style={{margin:"0 0 8px"}}><strong>Sjekk fagforeningen.</strong> Mange har forsikringsavtaler med bedre priser.</p>
-              <p style={{margin:"0 0 8px"}}><strong>Øk egenandelen</strong> hvis du har noe sparepenger. Lavere årspris, men mer ved skade.</p>
-              <p style={{margin:0}}><strong>Ikke betal for dobbel dekning.</strong> Mange har ulykkesforsikring både privat og via jobb. Det gir ikke dobbel utbetaling.</p>
-            </div>
           </div>
-        </div>
-
-        {/* Sources */}
-        <div style={{marginTop:32,paddingTop:20,borderTop:"1px solid #EEEEEE",paddingBottom:50}}>
-          <div style={{fontSize:11,color:"#BBB",marginBottom:10}}>Kilder — prisene er veiledende.</div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
-            {[{n:"Forbrukerrådet",u:"https://www.forbrukerradet.no/forside/okonomi/forsikring/"},{n:"Finansportalen",u:"https://www.finansportalen.no/forsikring/"},{n:"Helsenorge",u:"https://www.helsenorge.no/"},{n:"NAV",u:"https://www.nav.no/"}].map((s,i)=>(
-              <a key={i} href={s.u} target="_blank" rel="noopener noreferrer" style={{fontSize:12,color:"#888",textDecoration:"none",padding:"4px 10px",borderRadius:6,background:"#F5F5F5",border:"1px solid #EEE",fontFamily:FF}}>{I.ext} {s.n}</a>
-            ))}
+        ):(
+          <div style={{borderRadius:16,background:BL,border:`1px solid ${BM}`,padding:"40px 28px",textAlign:"center"}}>
+            <p style={{fontSize:15,color:"#999",margin:0}}>{has?"Marker forsikringene du har og trenger ovenfor for å se hva du kan spare.":"Velg din situasjon ovenfor, så regner vi ut hva du kan spare."}</p>
           </div>
-          <p style={{fontSize:11,color:"#CCC",marginTop:14}}>dekket.info er uavhengig og gratis. Generell veiledning, ikke finansiell rådgivning.</p>
-        </div>
+        )}
       </div>
     </div>
   );
