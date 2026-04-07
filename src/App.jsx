@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 
-const BLUE = "#4D4AFB";
-const BL = "#EDEDFF";
-const BM = "#D8D8FF";
+const BLUE = "#2D5A3D";
+const BL = "#EBF2ED";
+const BM = "#C8D9CC";
 const FF = "'Manrope',sans-serif";
 
 const I = {
@@ -97,6 +97,8 @@ export default function App(){
 
   const costItems=need.filter(i=>i.p!=="skip");
   const tc=costItems.reduce((a,i)=>{const p=pp(i.pr);if(p){a.lo+=p.lo;a.hi+=p.hi;}return a;},{lo:0,hi:0});
+  const haveCostItems=have.filter(i=>pp(i.pr));
+  const haveCost=haveCostItems.reduce((a,i)=>{const p=pp(i.pr);if(p){a.lo+=p.lo;a.hi+=p.hi;}return a;},{lo:0,hi:0});
 
   const bNeed=need.filter(i=>i.b&&i.p!=="skip");
   const bHave=have.filter(i=>i.b);
@@ -131,6 +133,7 @@ export default function App(){
           <div style={{minWidth:0}}>
             <div style={{fontWeight:700,fontSize:isMobile?15:17}}>Estimert kostnad: {fmt(tc.lo)} til {fmt(tc.hi)} kr/år</div>
             <div style={{opacity:0.65,fontSize:12,marginTop:2}}>Basert på {costItems.length} forsikring{costItems.length!==1?"er":""} du sannsynligvis trenger</div>
+            {haveCost.lo>0&&<div style={{opacity:0.65,fontSize:12,marginTop:2}}>Du betaler kanskje {fmt(haveCost.lo)} til {fmt(haveCost.hi)} kr/år for det du allerede har</div>}
           </div>
           {allB.length>=2&&savLo>0&&(
             <button onClick={scrollBundle} style={{display:"flex",alignItems:"center",gap:5,fontSize:12,fontWeight:600,color:"white",background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",borderRadius:6,padding:"6px 14px",cursor:"pointer",fontFamily:FF,whiteSpace:"nowrap",flexShrink:0}}>
@@ -178,8 +181,8 @@ export default function App(){
         <h2 style={{fontSize:"clamp(24px,3.5vw,32px)",fontWeight:500,letterSpacing:"-0.02em",color:"#111",margin:"0 0 8px"}}>
           Dette kan du spare ved å samle forsikringene dine
         </h2>
-        <p style={{fontSize:15,color:"#888",margin:"0 0 20px",maxWidth:520,lineHeight:1.7}}>
-          De fleste forsikringsselskaper gir 15 til 20% rabatt når du samler flere forsikringer hos dem. Det kan fort bli noen tusenlapper i året.
+        <p style={{fontSize:15,color:"#888",margin:"0 0 20px",maxWidth:920,lineHeight:1.7}}>
+          De fleste forsikringsselskaper gir 15 til 20% rabatt når du samler flere forsikringer hos dem. Det kan fort bli noen tusenlapper.
         </p>
         {has&&allB.length>=2?(
           <div style={{borderRadius:16,overflow:"hidden",border:`2px solid ${BLUE}`}}>
@@ -211,7 +214,7 @@ export default function App(){
                   );})}
                 </div>
               </>)}
-              <div style={{background:"white",borderRadius:12,padding:"18px 22px",border:`1px solid ${BM}`}}>
+              <div style={{background:"white",margin:"12px 0",borderRadius:12,padding:"12px 22px",border:`1px solid ${BM}`}}>
                 <div style={{fontSize:15,fontWeight:600,color:"#111",marginBottom:8}}>Slik gjør du det</div>
                 <div style={{fontSize:14,color:"#555",lineHeight:1.7}}>
                   <p style={{margin:"0 0 6px"}}>1. Velg ett selskap (f.eks. If, Gjensidige, Tryg, Fremtind)</p>

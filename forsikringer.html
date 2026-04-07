@@ -24,6 +24,10 @@
     ]
   }
   </script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 
@@ -40,10 +44,36 @@
         <span>dekket<span class="logo-dot">.info</span></span>
       </a>
       <nav aria-label="Hovedmeny">
-        <a href="/forsikringer" aria-current="page">Forsikringssjekken</a>
+        <div class="hamburger-wrap" id="hambWrap">
+          <button class="hamburger-btn" aria-label="Åpne meny" aria-expanded="false" aria-controls="hambMenu" id="hambBtn" onclick="toggleHamb()">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="hamburger-dropdown" id="hambMenu" role="menu">
+            <a href="/forsikringer/boligforsikring" role="menuitem">Boligforsikring</a>
+            <a href="/forsikringer/bilforsikring" role="menuitem">Bilforsikring</a>
+            <a href="/forsikringer/reiseforsikring" role="menuitem">Reiseforsikring</a>
+            <a href="/forsikringer/sykkelforsikring" role="menuitem">Sykkelforsikring</a>
+            <a href="/forsikringer/barneforsikring" role="menuitem">Barneforsikring</a>
+            <a href="/forsikringer/personforsikring" role="menuitem">Personforsikring</a>
+            <div class="menu-divider"></div>
+            <a href="/forsikringer" class="menu-all" role="menuitem" aria-current="page">Alle forsikringer →</a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
+  <script>
+    function toggleHamb(){
+      var w=document.getElementById("hambWrap");
+      var b=document.getElementById("hambBtn");
+      var open=w.classList.toggle("open");
+      b.setAttribute("aria-expanded",open);
+    }
+    document.addEventListener("click",function(e){
+      var w=document.getElementById("hambWrap");
+      if(w&&!w.contains(e.target)){w.classList.remove("open");document.getElementById("hambBtn").setAttribute("aria-expanded","false");}
+    });
+  </script>
 
   <main class="container">
 
@@ -55,7 +85,7 @@
     <!-- ── Hero ── -->
     <section class="hero">
       <h1>Hvilke forsikringer trenger du <span>egentlig</span>?</h1>
-      <p>Kryss av det som gjelder for deg. Vi gir deg et ærlig svar uten bullshit.</p>
+      <p>Kryss av det som gjelder for deg. Du trenger ikke logge inn med BankID og du vil ikke bli oppringt av forsikringsselskaper i etterkant.</p>
     </section>
 
     <!-- ══ React-appen mountes her ══ -->
@@ -66,10 +96,12 @@
     <section class="seo-section">
       <h2>Andre måter å spare på</h2>
       <div class="tips">
-        <p><strong>Sjekk hva jobben dekker.</strong> Mange har reise, ulykke og uføre uten å vite det.</p>
-        <p><strong>Sjekk fagforeningen.</strong> Mange har forsikringsavtaler med bedre priser.</p>
-        <p><strong>Øk egenandelen</strong> hvis du har noe sparepenger. Lavere årspris, men mer ved skade.</p>
-        <p><strong>Ikke betal for dobbel dekning.</strong> Mange har ulykkesforsikring både privat og via jobb. Det gir ikke dobbel utbetaling.</p>
+        <ul>
+          <li><strong>Sjekk hva jobben dekker.</strong> Mange har reise, ulykke og uføre uten å vite det.</li>
+          <li><strong>Sjekk fagforeningen.</strong> Mange har forsikringsavtaler med bedre priser.</li>
+          <li><strong>Øk egenandelen</strong> hvis du har noe sparepenger. Lavere årspris, men mer ved skade.</li>
+          <li><strong>Ikke betal for dobbel dekning.</strong> Mange har ulykkesforsikring både privat og via jobb. Det gir ikke dobbel utbetaling.</li>
+        </ul>
       </div>
     </section>
 
@@ -77,30 +109,30 @@
     <section class="seo-section">
       <h2>Vanlige forsikringer i Norge</h2>
       <div class="grid">
-        <div class="card">
+        <a href="/forsikringer/boligforsikring" class="card">
           <h3>Innboforsikring</h3>
           <p>Dekker tingene du eier hjemme — møbler, elektronikk, klær og verdisaker. De fleste trenger denne, enten du eier eller leier.</p>
-        </div>
-        <div class="card">
+        </a>
+        <a href="/forsikringer/boligforsikring" class="card">
           <h3>Husforsikring</h3>
           <p>Dekker skade på selve bygningen. Viktig for selveiere. Brann, vann og naturskade er typisk dekket.</p>
-        </div>
-        <div class="card">
+        </a>
+        <a href="/forsikringer/bilforsikring" class="card">
           <h3>Bilforsikring</h3>
           <p>Ansvarsforsikring er lovpålagt. Kasko og delkasko gir ekstra dekning for skade på din egen bil.</p>
-        </div>
-        <div class="card">
+        </a>
+        <a href="/forsikringer/reiseforsikring" class="card">
           <h3>Reiseforsikring</h3>
           <p>Dekker sykdom, avbestilling og tap av bagasje. Sjekk om kredittkort eller fagforening allerede dekker noe.</p>
-        </div>
-        <div class="card">
+        </a>
+        <a href="/forsikringer/personforsikring" class="card">
           <h3>Personforsikring</h3>
           <p>Uføre- og livsforsikring. Spesielt viktig om noen er avhengig av inntekten din.</p>
-        </div>
-        <div class="card">
+        </a>
+        <a href="/forsikringer/barneforsikring" class="card">
           <h3>Barneforsikring</h3>
-          <p>Gir barna trygghet ved sykdom eller ulykke. Tegn den tidlig — det er billigere og lettere å bli godkjent.</p>
-        </div>
+          <p>Gir barna trygghet ved sykdom eller ulykke. Kjøp den tidlig — det er billigere og lettere å bli godkjent.</p>
+        </a>
       </div>
     </section>
 
@@ -139,9 +171,10 @@
   <!-- ── Footer ── -->
   <footer class="site-footer">
     <div class="links">
-      <a href="https://www.forbrukerradet.no/finansportalen/forsikring/" target="_blank" rel="noopener noreferrer">Forbrukerrådet</a>
+      <a href="https://www.finansportalen.no/forsikring/" target="_blank" rel="noopener noreferrer">Finansportalen</a>
+      <a href="/om">Om</a>
     </div>
-    <p>© 2026 dekket.info. All rights reserved. Uavhengig og gratis. Generell veiledning, ikke finansiell rådgivning.</p>
+    <p>© 2026 dekket.info. All rights reserved. Uavhengig og laget med KI, ikke finansiell rådgivning.</p>
   </footer>
 
   <script type="module" src="/src/main.jsx"></script>

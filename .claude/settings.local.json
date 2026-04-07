@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.gjensidige.no)",
+      "WebFetch(domain:www.if.no)",
+      "WebFetch(domain:www.storebrand.no)",
+      "WebFetch(domain:www.tryg.no)",
+      "WebFetch(domain:www.erv.no)",
+      "WebFetch(domain:www.klp.no)",
+      "WebFetch(domain:www.fremtind.no)",
+      "Bash(grep -l \"Om oss\" c:/Users/FridtjofBacheHungnes/Desktop/dekket-info/forsikringer/*.html)",
+      "Bash(python3 -c ':*)",
+      "Bash(grep -c \"Om oss\" c:/Users/FridtjofBacheHungnes/Desktop/dekket-info/forsikringer/*.html c:/Users/FridtjofBacheHungnes/Desktop/dekket-info/index.html c:/Users/FridtjofBacheHungnes/Desktop/dekket-info/forsikringer.html)",
+      "WebFetch(domain:www.europeiske.no)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__resize_page"
+    ]
+  }
+}
