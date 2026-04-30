@@ -632,6 +632,177 @@ h2 {
 
 
 /* ══════════════════════════════════════════
+   PRISSYSTEM
+   ══════════════════════════════════════════ */
+
+/* Dato-tag ──────────────────────────────── */
+.pris-dato {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 2px 8px;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.pris-dato--gronn { background: #DCFCE7; color: #16A34A; }
+.pris-dato--gul   { background: #FEF3C7; color: #D97706; }
+.pris-dato--rod   { background: #FEE2E2; color: #DC2626; }
+
+/* Info-ikon og tooltip ───────────────────── */
+.pris-info-wrap {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pris-info-ikon {
+  font-size: 13px;
+  color: #ccc;
+  cursor: help;
+  margin-left: 3px;
+  line-height: 1;
+  transition: color 0.15s;
+  user-select: none;
+}
+
+.pris-info-ikon:hover,
+.pris-info-ikon:focus { color: #2D5A3D; outline: none; }
+
+.pris-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background: #1a1a1a;
+  color: white;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 300;
+  pointer-events: none;
+  text-align: left;
+}
+
+.pris-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1a1a1a;
+}
+
+.pris-info-wrap:hover .pris-tooltip,
+.pris-info-ikon:focus + .pris-tooltip { display: block; }
+
+/* Priskort (blokk) ──────────────────────── */
+.priskort {
+  display: inline-block;
+  background: #F9FAFB;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px 20px;
+  min-width: 180px;
+}
+
+.priskort-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.priskort-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9CA3AF;
+}
+
+.priskort-beloep {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.priskort-enhet {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6B7280;
+}
+
+.priskort-kilde {
+  font-size: 11px;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Inline-pris ───────────────────────────── */
+.pris-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  color: #2D5A3D;
+}
+
+/* Pristabell ────────────────────────────── */
+.pristabell-wrap { margin-top: 16px; overflow-x: auto; }
+
+.pristabell {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.pristabell th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9CA3AF;
+  padding: 8px 12px;
+  border-bottom: 1.5px solid #E5E7EB;
+  white-space: nowrap;
+}
+
+.pristabell td {
+  padding: 11px 12px;
+  border-bottom: 1px solid #F3F4F6;
+  color: #111;
+  vertical-align: middle;
+}
+
+.pristabell tr:last-child td { border-bottom: none; }
+
+.pristabell-selskap { font-weight: 600; color: #111; }
+.pristabell-produkt { color: #6B7280; }
+.pristabell-pris { font-weight: 700; color: #2D5A3D; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.pristabell-disclaimer {
+  font-size: 11px;
+  color: #bbb;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+
+/* ══════════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════════ */
 
